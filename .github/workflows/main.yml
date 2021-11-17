@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -14,4 +14,12 @@ jobs:
       with:
         node-version: '14'
     - run: npm install
+    - run: echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" > .env
+    - name: serverless deploy
+      uses: serverless/github-action@master
+      with:
+        args: deploy stage=github
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
     
