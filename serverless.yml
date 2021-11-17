@@ -1,0 +1,38 @@
+service:
+  name: quote-stuff
+
+custom:
+  region: "us-east-1"
+  serverless-offline:
+    httpPort: 3000
+    allowCache: true
+    noPrependStageInUrl: true 
+  dotenv:
+    path: .env
+    logging: true
+
+  package:
+    individually: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+functions:
+  graphql:
+    handler: src/handler.handler
+    timeout: 20
+    events:
+      - http:
+          method: get
+          path: graphql
+          cors: true
+      - http:
+          method: post
+          path: graphql
+          cors: true
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-typescript
+  - serverless-dotenv-plugin
