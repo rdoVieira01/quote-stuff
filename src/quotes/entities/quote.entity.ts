@@ -1,4 +1,3 @@
-// import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
